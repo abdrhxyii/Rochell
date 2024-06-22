@@ -13,6 +13,8 @@ import LoginScreen from './Src/Screens/LoginScreen/LoginScreen';
 import ForgotPasswordScreen from './Src/Screens/ForgotPasswordScreen/ForgotPasswordScreen';
 import ResetPassword from './Src/Screens/ResetPassword/ResetPassword';
 import OTPScreen from './Src/Screens/OTPScreen/OTPScreen'
+import NotificationScreen from './Src/Screens/Notification/NotificationScreen';
+import MyDetailScreen from './Src/Screens/MyDetailScreen/MyDetailScreen';
 
 const homeIcon = require('./assets/Home.png');
 const searchIcon = require('./assets/Search.png');
@@ -54,7 +56,7 @@ function TabNavigator(){
       },
     })}
   >
-    <Tab.Screen name="Home" component={HomeScreen} />
+    <Tab.Screen name="Home" component={MyDetailScreen} />
     <Tab.Screen name="Search" component={SearchScreen} />
     <Tab.Screen name="Saved" component={SavedScreen} />
     <Tab.Screen name="Cart" component={CartScreen} />
@@ -72,6 +74,7 @@ export default function App() {
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}/>
         <Stack.Screen name="ResetPassword" component={ResetPassword}/>
         <Stack.Screen name="OTPScreen" component={OTPScreen}/>
+        <Stack.Screen name="Notification" component={NotificationScreen}/>
         <Stack.Screen name="Main" component={TabNavigator}/>
       </Stack.Navigator>
     </NavigationContainer>

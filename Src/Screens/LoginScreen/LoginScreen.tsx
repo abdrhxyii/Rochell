@@ -18,6 +18,10 @@ const LoginScreen = () => {
         navigation.navigate("ForgotPassword")
     }
 
+    const handleMain = () => {
+        navigation.navigate("Main")
+    }
+
   return (
     <SafeAreaView style={styles.container}>
         <Header header="Login to your account" subheader="It's great to see you again."/>
@@ -44,7 +48,7 @@ const LoginScreen = () => {
             Forgot your password? <Text onPress={handleForgotPassword} style={styles.link}>Reset your password</Text>
         </Text>
 
-        <PrimaryButton text="Login"/>
+        <PrimaryButton onPress={handleMain} text="Login"/>
 
         <Text style={styles.or}>or</Text>
 
