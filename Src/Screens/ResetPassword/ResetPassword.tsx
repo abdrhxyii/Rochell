@@ -15,12 +15,16 @@ export default function ResetPassword() {
         navigation.goBack()
     }
 
+    const handleOTP = () => {
+        navigation.navigate("OTPScreen")
+    }
+
   return (
     <SafeAreaView style={styles.container}>
         <Icon style={styles.backButton} name="arrow-left" size={25} solid={false} onPress={HandleBack}/>
         <Header header="Reset Password" subheader="Set the new password for your account so you can login and access all the features"/>
 
-        <Text style={styles.inputFieldText}>Password</Text>
+            <Text style={styles.inputFieldText}>Password</Text>
             <View style={styles.passwordContainer}>
             <TextInput
                 style={styles.passwordInput}
@@ -32,7 +36,7 @@ export default function ResetPassword() {
             </TouchableOpacity>
             </View>
 
-        <Text style={styles.inputFieldText}>Password</Text>
+            <Text style={styles.inputFieldText}>Password</Text>
             <View style={styles.passwordContainer}>
             <TextInput
                 style={styles.passwordInput}
@@ -44,7 +48,7 @@ export default function ResetPassword() {
             </TouchableOpacity>
             </View>
 
-        <PrimaryButton text="Continue"/>
+        <PrimaryButton onPress={handleOTP} text="Continue"/>
 
     </SafeAreaView>
   )
