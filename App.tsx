@@ -14,7 +14,6 @@ import ForgotPasswordScreen from './Src/Screens/ForgotPasswordScreen/ForgotPassw
 import ResetPassword from './Src/Screens/ResetPassword/ResetPassword';
 import OTPScreen from './Src/Screens/OTPScreen/OTPScreen'
 import NotificationScreen from './Src/Screens/Notification/NotificationScreen';
-import MyDetailScreen from './Src/Screens/MyDetailScreen/MyDetailScreen';
 
 const homeIcon = require('./assets/Home.png');
 const searchIcon = require('./assets/Search.png');
@@ -55,8 +54,8 @@ function TabNavigator(){
         paddingBottom: 12,
       },
     })}
-  >
-    <Tab.Screen name="Home" component={MyDetailScreen} />
+    >
+    <Tab.Screen name="Home" component={HomeScreen} />
     <Tab.Screen name="Search" component={SearchScreen} />
     <Tab.Screen name="Saved" component={SavedScreen} />
     <Tab.Screen name="Cart" component={CartScreen} />
