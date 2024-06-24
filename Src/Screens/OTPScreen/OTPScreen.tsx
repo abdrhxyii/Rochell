@@ -1,14 +1,16 @@
-import { StyleSheet, Text, View, SafeAreaView, TextInput } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TextInput, Alert } from 'react-native';
 import React, {useState} from 'react';
 import Header from '../../Components/HeaderComponent/Header';
 import PrmaryButton from '../../Components/PrimaryButton/PrimaryButton';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import Messagebox from '../../Components/Messagebox/Messagebox'
 
 const OTPScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>()
     const [otp, setOtp] = useState(["", "", "", ""])
+    const [messaegboxvisible, setMessaegboxvisible] = useState(false)
 
     const handleChange = (text: string, index: number) => {
         const newOtp = [...otp];
@@ -18,6 +20,10 @@ const OTPScreen = () => {
 
     const HandleBack = () => {
         navigation.goBack();
+    }
+
+    const handleAlrt = () => {
+      setMessaegboxvisible(true)
     }
 
   return (
@@ -37,7 +43,14 @@ const OTPScreen = () => {
         ))}
       </View>
       <Text style={styles.terms}>Email not received? <Text style={styles.link}>Resend code</Text></Text>
-      <PrmaryButton text="Continue"/>
+      <PrmaryButton onPress={handleAlrt} text="Continue"/>
+      <Messagebox
+        visible={messaegboxvisible} 
+        onClose={() => setMessaegboxvisible(false)}
+        title="Password Changed!"
+        bodymessage="You can now use your new password to login to your account."
+        type={'success'}
+      />
     </SafeAreaView>
   )
 }
