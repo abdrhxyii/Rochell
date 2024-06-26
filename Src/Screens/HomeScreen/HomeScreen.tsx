@@ -3,6 +3,8 @@ import React, {useState} from 'react'
 import Header from '../../Components/HeaderComponent/Header';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Modal from 'react-native-modal';
+import { PanGestureHandler } from 'react-native-gesture-handler';
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 
 const productData = [
   { name: 'Regular Fit Slogan', price: '1,190' },
@@ -11,12 +13,32 @@ const productData = [
   { name: 'Regular Fit V-Neck', price: '1,290' }
 ];
 
-const HomeScreen = () => {
+  const translateY = useSharedValue(0);
+
+
+  const HomeScreen = () => {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
+  const gestureHandler = (event: any) => {
+    translateY.value = event.nativeEvent.translationY;
+  };
+
+  const gestureEndHandler = () => {
+    if (translateY.value > 150) {
+      setModalVisible(false);
+    }
+    translateY.value = withSpring(0);
+  };
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: translateY.value }],
+    };
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -76,14 +98,17 @@ const HomeScreen = () => {
         isVisible={isModalVisible}
         onBackdropPress={toggleModal}
         style={styles.modal}
+        backdropTransitionOutTiming={0}
       >
-        <View style={styles.modalContent}>
-          <View style={styles.handle}/>
-          <TouchableOpacity onPress={toggleModal} style={styles.closeButton}>
-            <Icon name="times" size={20} color="#000" />
-          </TouchableOpacity>
-          <Text style={styles.modalText}>Hello</Text>
-        </View>
+        <PanGestureHandler onGestureEvent={gestureHandler} onEnded={gestureEndHandler}>
+          <Animated.View style={[styles.modalContent, animatedStyle]}>
+            <View style={styles.handle} />
+            <TouchableOpacity onPress={toggleModal} style={styles.closeButton}>
+              <Icon name="times" size={20} color="#000" />
+            </TouchableOpacity>
+            <Text style={styles.modalText}>Hello</Text>
+          </Animated.View>
+        </PanGestureHandler>
       </Modal>
     </SafeAreaView>
   )
