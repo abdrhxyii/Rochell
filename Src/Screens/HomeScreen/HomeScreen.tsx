@@ -1,7 +1,8 @@
-import { View, Text, TextInput, TouchableOpacity, Image, ScrollView, StyleSheet, SafeAreaView, Modal } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
 import React, {useState} from 'react'
 import Header from '../../Components/HeaderComponent/Header';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Modal from 'react-native-modal';
 
 const productData = [
   { name: 'Regular Fit Slogan', price: '1,190' },
@@ -11,11 +12,12 @@ const productData = [
 ];
 
 const HomeScreen = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
 
-  const handleBottomSheet = () => {
-    setModalVisible(true)
-  }
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Header showLeftIcon={false} loggedIn="false" leftIcon="arrow-left" rightIcon="bell" centerText="Discover" lefticonvisible="true"/>
@@ -24,7 +26,7 @@ const HomeScreen = () => {
           style={styles.textInput}
           placeholder="Write your message..."
         />
-        <TouchableOpacity onPress={handleBottomSheet} style={styles.sendButton}>
+        <TouchableOpacity style={styles.sendButton} onPress={toggleModal}>
           <Icon name="sliders-h" color={'white'} size={20} solid={false}/>
         </TouchableOpacity>
       </View>
@@ -71,13 +73,18 @@ const HomeScreen = () => {
       </View>
 
       <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
+        isVisible={isModalVisible}
+        onBackdropPress={toggleModal}
+        style={styles.modal}
       >
-        <Text>Hello</Text>
+        <View style={styles.modalContent}>
+          <View style={styles.handle}/>
+          <TouchableOpacity onPress={toggleModal} style={styles.closeButton}>
+            <Icon name="times" size={20} color="#000" />
+          </TouchableOpacity>
+          <Text style={styles.modalText}>Hello</Text>
+        </View>
       </Modal>
-      
     </SafeAreaView>
   )
 }
@@ -170,5 +177,34 @@ const styles = StyleSheet.create({
     margin: 8,
     marginVertical: -7,
     // textAlign: 'left'
+  },
+  modal: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  handle: {
+    width: 40,
+    height: 5,
+    backgroundColor: '#ccc',
+    borderRadius: 2.5,
+    alignSelf: 'center',
+    marginVertical: 10,
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 22,
+    borderTopLeftRadius: 17,
+    borderTopRightRadius: 17,
+    height: '50%',
+    alignItems: 'center',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 15,
+    right: 15,
+  },
+  modalText: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
