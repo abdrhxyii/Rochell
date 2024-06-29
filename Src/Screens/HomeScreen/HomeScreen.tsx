@@ -5,15 +5,24 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Modal from 'react-native-modal';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
+import LabelScroller from '../../Components/LabelScroller/LabelScroller';
 
 const productData = [
-  { name: 'Regular Fit Slogan', price: '1,190' },
-  { name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
-  { name: 'Regular Fit Black', price: '1,190' },
-  { name: 'Regular Fit V-Neck', price: '1,290' }
+  { id: 1, name: 'Regular Fit Slogan', price: '1,190' },
+  { id: 2,  name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
+  { id: 3, name: 'Regular Fit Black', price: '1,190' },
+  { id: 4, name: 'Regular Fit V-Neck', price: '1,290' },
+  { id: 5, name: 'Regular Fit Slogan', price: '1,190' },
+  { id: 6,  name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
+  { id: 7, name: 'Regular Fit Black', price: '1,190' },
+  { id: 8, name: 'Regular Fit V-Neck', price: '1,290' },
+  { id: 9, name: 'Regular Fit Slogan', price: '1,190' },
+  { id: 10,  name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
+  { id: 11, name: 'Regular Fit Black', price: '1,190' },
+  { id: 12, name: 'Regular Fit V-Neck', price: '1,290' }
 ];
 
-  const translateY = useSharedValue(0);
+  // const translateY = useSharedValue(0);
 
 
   const HomeScreen = () => {
@@ -23,22 +32,22 @@ const productData = [
     setModalVisible(!isModalVisible);
   };
 
-  const gestureHandler = (event: any) => {
-    translateY.value = event.nativeEvent.translationY;
-  };
+  // const gestureHandler = (event: any) => {
+  //   translateY.value = event.nativeEvent.translationY;
+  // };
 
-  const gestureEndHandler = () => {
-    if (translateY.value > 150) {
-      setModalVisible(false);
-    }
-    translateY.value = withSpring(0);
-  };
+  // const gestureEndHandler = () => {
+  //   if (translateY.value > 150) {
+  //     setModalVisible(false);
+  //   }
+  //   translateY.value = withSpring(0);
+  // };
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateY: translateY.value }],
-    };
-  });
+  // const animatedStyle = useAnimatedStyle(() => {
+  //   return {
+  //     transform: [{ translateY: translateY.value }],
+  //   };
+  // });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,62 +62,34 @@ const productData = [
         </TouchableOpacity>
       </View>
 
-      <View style={{ height: 60 }}>
-      <ScrollView showsHorizontalScrollIndicator={false} horizontal style={styles.categoryContainer}>
-        <TouchableOpacity style={styles.categoryButton}>
-          <Text style={styles.categoryText}>All</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryButton}>
-          <Text style={styles.categoryText}>Tshirts</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryButton}>
-          <Text style={styles.categoryText}>Jeans</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryButton}>
-          <Text style={styles.categoryText}>Shoes</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryButton}>
-          <Text style={styles.categoryText}>Abayas</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryButton}>
-          <Text style={styles.categoryText}>Shalwar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryButton}>
-          <Text style={styles.categoryText}>Bangles</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryButton}>
-          <Text style={styles.categoryText}>Underwears</Text>
-        </TouchableOpacity>
+      <LabelScroller itemLabel={["All", "Jeans", "Shoes", "Abayas", "Shalwar", "Bangles", "Underwears"]}/>
+
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.productRow}>
+          {productData.map((product) => (
+            <View key={product.id} style={styles.productContainer}>
+              <Image resizeMode='cover' source={require('../../../assets/tshirt2.jpg')} style={styles.productImage} />
+              <TouchableOpacity style={styles.favoriteIcon}>
+                <Icon name="heart" size={20} color="#000" />
+              </TouchableOpacity>
+              <Text style={styles.productName}>{product.name}</Text>
+              <Text style={styles.productPrice}>${product.price}</Text>
+            </View>
+          ))}
+        </View>
       </ScrollView>
-      </View>
-
-
-      <View style={styles.productcontainer}>
-        <TouchableOpacity>
-        <Image resizeMode='center' source={require('../../../assets/tshirt2.jpg')} style={styles.productImage} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.favoriteIcon}>
-            <Icon name="heart" size={20} color="#000" />
-        </TouchableOpacity>
-        <Text style={styles.productName}>Regular Fit Slogan</Text>
-        <Text style={styles.productPrice}>$1,190</Text>
-      </View>
 
       <Modal
         isVisible={isModalVisible}
         onBackdropPress={toggleModal}
         style={styles.modal}
-        backdropTransitionOutTiming={0}
       >
-        <PanGestureHandler onGestureEvent={gestureHandler} onEnded={gestureEndHandler}>
-          <Animated.View style={[styles.modalContent, animatedStyle]}>
-            <View style={styles.handle} />
-            <TouchableOpacity onPress={toggleModal} style={styles.closeButton}>
-              <Icon name="times" size={20} color="#000" />
-            </TouchableOpacity>
-            <Text style={styles.modalText}>Hello</Text>
-          </Animated.View>
-        </PanGestureHandler>
+        <View style={styles.modalContent}>
+          <TouchableOpacity onPress={toggleModal} style={styles.closeButton}>
+            <Icon name="times" size={20} color="#000" />
+          </TouchableOpacity>
+          <Text style={styles.modalText}>Hello</Text>
+        </View>
       </Modal>
     </SafeAreaView>
   )
@@ -168,24 +149,28 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 12,
   },
-  productcontainer: {
-    width: 180,
-    height: 200,
+  productRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  productContainer: {
+    width: '48%', // Adjust this for two columns with some space between them
+    height: 260,
     borderWidth: 1,
     borderColor: '#808080',
-    borderRadius: 8,
+    borderRadius: 12,
+    marginBottom: 20,
+    overflow: 'hidden', // Ensure contents don't overflow
   },
   productImage: {
     width: '100%',
-    height: "100%",
-  },
-  productContainer: {
-    flex: 1,
+    height: '70%',
   },
   favoriteIcon: {
     position: 'absolute',
-    top: 8,
-    right: 8,
+    top: 10,
+    right: 10,
     backgroundColor: '#fff',
     borderRadius: 20,
     padding: 6,
@@ -193,27 +178,20 @@ const styles = StyleSheet.create({
   productName: {
     fontSize: 16,
     fontWeight: 'bold',
-    margin: 8,
-    // textAlign: 'left'
+    marginHorizontal: 10,
+    textAlign: 'left',
+    marginTop: '10%', // Adjust based on image height
   },
   productPrice: {
     fontSize: 16,
     color: '#888',
-    margin: 8,
-    marginVertical: -7,
-    // textAlign: 'left'
+    marginHorizontal: 10,
+    marginBottom: 10,
+    textAlign: 'left'
   },
   modal: {
     justifyContent: 'flex-end',
     margin: 0,
-  },
-  handle: {
-    width: 40,
-    height: 5,
-    backgroundColor: '#ccc',
-    borderRadius: 2.5,
-    alignSelf: 'center',
-    marginVertical: 10,
   },
   modalContent: {
     backgroundColor: 'white',

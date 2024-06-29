@@ -16,6 +16,8 @@ import OTPScreen from './Src/Screens/OTPScreen/OTPScreen'
 import NotificationScreen from './Src/Screens/Notification/NotificationScreen';
 // import FAQScreen from './Src/Screens/FAQScreen/FAQScreen';
 import CustomerserviceScreen from './Src/Screens/CustomerserviceScreen/CustomerserviceScreen';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 // import 'react-native-gesture-handler';
 
 const homeIcon = require('./assets/Home.png');
