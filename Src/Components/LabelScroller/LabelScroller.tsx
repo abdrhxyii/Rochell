@@ -8,13 +8,22 @@ interface LabelScollProps {
 }
 
 const LabelScroller: React.FC<LabelScollProps> = ({itemLabel}) => {
+  const [selectedLabel, setSelectedLabel] = useState<string | null> (null);
+
+  const handleLabelClick = (data: any) => {
+    setSelectedLabel(data)
+  }
   return (
     <View style={{ height: 60 }}>
     <ScrollView showsHorizontalScrollIndicator={false} horizontal style={styles.categoryContainer}>
       { 
       itemLabel.map((data, index) => (
-        <TouchableOpacity key={index} style={styles.categoryButton}>
-            <Text style={styles.categoryText}>{data}</Text>
+        <TouchableOpacity 
+        key={index} 
+        style={[styles.categoryButton, selectedLabel === data && styles.categoryContainerSelected]}
+        onPress={() => handleLabelClick(data)}
+        >
+            <Text style={[styles.categoryText,  selectedLabel === data && styles.categoryTextSelected]}>{data}</Text>
         </TouchableOpacity>
       ))
       }
@@ -47,4 +56,10 @@ const styles = StyleSheet.create({
         color: '#000',
         fontSize: 12,
       },
+      categoryTextSelected: {
+        color: '#fff'
+      },
+      categoryContainerSelected: {
+        backgroundColor: "#000"
+      }
 })

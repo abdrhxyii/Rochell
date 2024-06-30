@@ -6,31 +6,43 @@ import Modal from 'react-native-modal';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 import LabelScroller from '../../Components/LabelScroller/LabelScroller';
+import { ParamListBase, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+const images = {
+  img1: require("../../../assets/trousere.jpeg"),
+  img2: require("../../../assets/tshirt2.jpg"),
+  img3: require("../../../assets/tshirt.jpg")
+}
 const productData = [
-  { id: 1, name: 'Regular Fit Slogan', price: '1,190' },
-  { id: 2,  name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
-  { id: 3, name: 'Regular Fit Black', price: '1,190' },
-  { id: 4, name: 'Regular Fit V-Neck', price: '1,290' },
-  { id: 5, name: 'Regular Fit Slogan', price: '1,190' },
-  { id: 6,  name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
-  { id: 7, name: 'Regular Fit Black', price: '1,190' },
-  { id: 8, name: 'Regular Fit V-Neck', price: '1,290' },
-  { id: 9, name: 'Regular Fit Slogan', price: '1,190' },
-  { id: 10,  name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
-  { id: 11, name: 'Regular Fit Black', price: '1,190' },
-  { id: 12, name: 'Regular Fit V-Neck', price: '1,290' }
+  { id: 1, img: images.img1, name: 'Regular Fit Slogan', price: '1,190' },
+  { id: 2, img: images.img2,  name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
+  { id: 3, img: images.img3, name: 'Regular Fit Black', price: '1,190' },
+  { id: 4, img: images.img3, name: 'Regular Fit V-Neck', price: '1,290' },
+  { id: 5, img: images.img3, name: 'Regular Fit Slogan', price: '1,190' },
+  { id: 6, img: images.img3,  name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
+  { id: 7, img: images.img3, name: 'Regular Fit Black', price: '1,190' },
+  { id: 8, img: images.img3, name: 'Regular Fit V-Neck', price: '1,290' },
+  { id: 9, img: images.img3, name: 'Regular Fit Slogan', price: '1,190' },
+  { id: 10, img: images.img3,  name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
+  { id: 11, img: images.img3, name: 'Regular Fit Black', price: '1,190' },
+  { id: 12, img: images.img3, name: 'Regular Fit V-Neck', price: '1,290' }
 ];
 
   // const translateY = useSharedValue(0);
 
 
   const HomeScreen = () => {
-  const [isModalVisible, setModalVisible] = useState(false);
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+    const [isModalVisible, setModalVisible] = useState(false);
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
+    const toggleModal = () => {
+      setModalVisible(!isModalVisible);
+    };
+
+    const handleProductDetailNavigation = () => {
+      navigation.navigate("ProductDetail")
+    }
 
   // const gestureHandler = (event: any) => {
   //   translateY.value = event.nativeEvent.translationY;
@@ -51,7 +63,7 @@ const productData = [
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header showLeftIcon={false} loggedIn="false" leftIcon="arrow-left" rightIcon="bell" centerText="Discover" lefticonvisible="true"/>
+      {/* <Header showLeftIcon={false} loggedIn="false" leftIcon="arrow-left" rightIcon="bell" centerText="Discover" lefticonvisible="true"/> */}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
@@ -67,30 +79,17 @@ const productData = [
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.productRow}>
           {productData.map((product) => (
-            <View key={product.id} style={styles.productContainer}>
-              <Image resizeMode='cover' source={require('../../../assets/tshirt2.jpg')} style={styles.productImage} />
+            <TouchableOpacity activeOpacity={1} onPress={handleProductDetailNavigation} key={product.id} style={styles.productContainer}>
+              <Image resizeMode='cover' source={product.img} style={styles.productImage} />
               <TouchableOpacity style={styles.favoriteIcon}>
                 <Icon name="heart" size={20} color="#000" />
               </TouchableOpacity>
               <Text style={styles.productName}>{product.name}</Text>
               <Text style={styles.productPrice}>${product.price}</Text>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
-
-      <Modal
-        isVisible={isModalVisible}
-        onBackdropPress={toggleModal}
-        style={styles.modal}
-      >
-        <View style={styles.modalContent}>
-          <TouchableOpacity onPress={toggleModal} style={styles.closeButton}>
-            <Icon name="times" size={20} color="#000" />
-          </TouchableOpacity>
-          <Text style={styles.modalText}>Hello</Text>
-        </View>
-      </Modal>
     </SafeAreaView>
   )
 }
@@ -106,8 +105,8 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    borderTopWidth: 1,
-    borderColor: '#e0e0e0',
+    // borderTopWidth: 1,
+    // borderColor: '#e0e0e0',
     alignItems: 'center',
     paddingTop: 20
   },
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     backgroundColor: '#000',
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     borderRadius: 7,
   },
   sendButtonText: {
@@ -157,10 +156,10 @@ const styles = StyleSheet.create({
   productContainer: {
     width: '48%', // Adjust this for two columns with some space between them
     height: 260,
-    borderWidth: 1,
-    borderColor: '#808080',
+    // borderWidth: 1,
+    // borderColor: '#808080',
     borderRadius: 12,
-    marginBottom: 20,
+    marginBottom: 8,
     overflow: 'hidden', // Ensure contents don't overflow
   },
   productImage: {
