@@ -1,10 +1,15 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
-import React from 'react'
+import React, {useState} from 'react'
 import Header from '../../Components/HeaderComponent/Header';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import PrimaryButton from '../../Components/PrimaryButton/PrimaryButton';
 
 const ProductDetailScreen = () => {
+    const [labelsize, setLabelsize] = useState(null);
+
+    const handleSizeClick = (size: any) => {
+      setLabelsize(size)
+    }
   return (
     <SafeAreaView style={styles.container}>
         <Header loggedIn="true" leftIcon="arrow-left" rightIcon="bell" centerText="Details"/>
@@ -18,32 +23,37 @@ const ProductDetailScreen = () => {
 
         <View style={styles.detailsContainer}>
         <Text style={styles.productTitle}>Regular Fit Slogan</Text>
-        <View style={styles.ratingContainer}>
-          <Icon name="star" size={16} color="#FFD700" />
-          <Text style={styles.ratingText}>4.0/5 (45 reviews)</Text>
-        </View>
+        <TouchableOpacity style={styles.ratingContainer}>
+          <Icon name="star" size={16}  color="#FFD700" />
+          <Text style={styles.ratingText}>4.0/5 <Text>(45 reviews)</Text></Text>
+        </TouchableOpacity>
         <Text style={styles.description}>
           The name says it all, the right size slightly snugs the body leaving enough room for comfort in the sleeves and waist.
         </Text>
         
-        <View style={styles.sizeContainer}>
+        <View>
           <Text style={styles.sizeText}>Choose size</Text>
           <View style={styles.sizeButtons}>
-            <TouchableOpacity style={styles.sizeButton}><Text>S</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.sizeButton}><Text>M</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.sizeButton}><Text>L</Text></TouchableOpacity>
+          {['S', 'M', 'L'].map((size) => (
+            <TouchableOpacity
+              key={size}
+              activeOpacity={1}
+              style={[styles.sizeButton, labelsize === size && styles.sizeButtonClick]}
+              onPress={() => handleSizeClick(size)}>
+                <Text style={[styles.sizeButtonText, labelsize === size && styles.sizeButtonTextClick]}>{size}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
         </View>
         
         <View style={styles.cartContainer}> 
-            <View style={{
-
-            }}>
-                <Text style={{color: '#808080', fontSize: 12,}}>Price</Text>
+            <View>
+                <Text style={{color: '#808080', fontSize: 12, fontWeight: 'bold'}}>Price</Text>
                 <Text style={styles.price}>$1,190</Text>
             </View>
             <PrimaryButton width={240} text="Add to Cart"/>
         </View>
+        
       </View>
     </SafeAreaView>
   )
@@ -79,29 +89,44 @@ const styles = StyleSheet.create({
       ratingText: {
         marginLeft: 8,
         fontSize: 16,
+        fontWeight: 'bold',
+        textDecorationLine: 'underline'
       },
       description: {
         fontSize: 16,
         color: '#666',
-        marginVertical: 8,
-      },
-      sizeContainer: {
-        // marginVertical: 16,
+        lineHeight: 20
       },
       sizeText: {
         fontSize: 16,
         fontWeight: 'bold',
+        marginTop: 10,
       },
       sizeButtons: {
         flexDirection: 'row',
-        // marginVertical: 8,
       },
       sizeButton: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         borderWidth: 1,
         borderColor: '#ccc',
-        padding: 12,
-        borderRadius: 4,
-        marginHorizontal: 4,
+        backgroundColor: '#fff',
+        padding: 13,
+        width: 50,
+        borderRadius: 8,
+        marginRight: 10,
+        marginTop: 10
+      },
+      sizeButtonText: {
+        fontWeight: 'bold',
+        fontSize: 15,
+      },
+      sizeButtonTextClick: {
+        color: '#fff'
+      },
+      sizeButtonClick: {
+        backgroundColor: '#000',
       },
       price: {
         fontSize: 20,
@@ -121,7 +146,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 10,
         justifyContent: 'space-between',
-        bottom: -75,
+        bottom: -65,
         borderTopWidth: 1,
         borderColor: '#e0e0e0',
       }
