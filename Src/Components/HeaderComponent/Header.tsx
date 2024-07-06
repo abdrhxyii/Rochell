@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-export default function Header({header, subheader, loggedIn = false, centerText = "", leftIcon, rightIcon}: any) {
+export default function Header({header, subheader, loggedIn = false, centerText = "", leftIcon, rightIcon, showLeftIcon = true}: any) {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   const handleNotification = () => {
@@ -24,7 +24,7 @@ export default function Header({header, subheader, loggedIn = false, centerText 
         </> :
         <>
         <View style={styles.logedheader}>
-            <Icon name={leftIcon} size={20} onPress={handleBack} solid={false}/>
+            { showLeftIcon && <Icon name={leftIcon} size={20} onPress={handleBack} solid={false}/> }
             <Text style={styles.logedheaderTitle}>{centerText}</Text>
             <Icon name={rightIcon} onPress={handleNotification} size={20} solid={false}/>
         </View>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
       borderBottomColor: '#ddd',
     },
     logedheaderTitle: {
-      fontSize: 21,
+      fontSize: 25,
       fontWeight: 'bold',
     },
 })

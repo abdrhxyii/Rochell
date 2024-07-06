@@ -16,6 +16,10 @@ import OTPScreen from './Src/Screens/OTPScreen/OTPScreen'
 import NotificationScreen from './Src/Screens/Notification/NotificationScreen';
 // import FAQScreen from './Src/Screens/FAQScreen/FAQScreen';
 import CustomerserviceScreen from './Src/Screens/CustomerserviceScreen/CustomerserviceScreen';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import ProductDetailScreen from './Src/Screens/ProductDetailScreen/ProductDetailScreen';
+
+// import 'react-native-gesture-handler';
 
 const homeIcon = require('./assets/Home.png');
 const searchIcon = require('./assets/Search.png');
@@ -76,6 +80,7 @@ export default function App() {
         <Stack.Screen name="ResetPassword" component={ResetPassword}/>
         <Stack.Screen name="OTPScreen" component={OTPScreen}/>
         <Stack.Screen name="Notification" component={CustomerserviceScreen}/>
+        <Stack.Screen name="ProductDetail" component={ProductDetailScreen}/>
         <Stack.Screen name="Main" component={TabNavigator}/>
       </Stack.Navigator>
     </NavigationContainer>
