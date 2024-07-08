@@ -81,6 +81,8 @@ export default function App() {
         <Stack.Screen name="OTPScreen" component={OTPScreen}/>
         <Stack.Screen name="Notification" component={CustomerserviceScreen}/>
         <Stack.Screen name="ProductDetail" component={ProductDetailScreen}/>
+        {/* <Stack.Screen name="Address" component={}/> */}
+
         <Stack.Screen name="Main" component={TabNavigator}/>
       </Stack.Navigator>
     </NavigationContainer>
