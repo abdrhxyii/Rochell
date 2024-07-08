@@ -3,6 +3,8 @@ import React from 'react'
 import Header from '../../Components/HeaderComponent/Header'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import PrimaryButton from '../../Components/PrimaryButton/PrimaryButton';
+import { ParamListBase, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 const images = {
   img1: require("../../../assets/trousere.jpeg"),
@@ -26,6 +28,12 @@ const cartItems = [
 ];
 
 const CartScreen = () => {
+
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+
+  const handleAddressScreen = () => {
+    navigation.navigate("Address")
+  }
 
   const renderCartItem = ({ item } : any) => (
     <View style={styles.cartItem}>
@@ -82,7 +90,7 @@ const CartScreen = () => {
         </View>
       </View>
       <View style={styles.checkoutButton}>
-        <PrimaryButton text={"Go To Checkout"} width={'100%'}/>
+        <PrimaryButton onPress={handleAddressScreen} text={"Go To Checkout"} width={'100%'}/>
       </View>
 
   </SafeAreaView>
