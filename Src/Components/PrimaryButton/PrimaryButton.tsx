@@ -22,5 +22,6 @@ const styles = StyleSheet.create({
       createAccountButtonText: {
         color: 'white',
         fontSize: 16,
+        fontWeight: 'bold'
       },
 })
