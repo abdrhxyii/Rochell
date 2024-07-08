@@ -90,7 +90,7 @@ const CartScreen = () => {
         </View>
       </View>
       <View style={styles.checkoutButton}>
-        <PrimaryButton text={"Go To Checkout"} width={'100%'}/>
+        <PrimaryButton onPress={handleAddressScreen} text={"Go To Checkout"} width={'100%'}/>
       </View>
 
   </SafeAreaView>
