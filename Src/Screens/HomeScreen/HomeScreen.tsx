@@ -19,6 +19,23 @@ const productData = [
   { id: 1, img: images.img1, name: 'Regular Fit Slogan', price: '1,190' },
   { id: 2, img: images.img2, name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
   { id: 3, img: images.img3, name: 'Regular Fit Black', price: '1,190' },
+  { id: 4, img: images.img1, name: 'Regular Fit Slogan', price: '1,190' },
+  { id: 5, img: images.img2, name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
+  { id: 6, img: images.img3, name: 'Regular Fit Black', price: '1,190' },
+  { id: 7, img: images.img1, name: 'Regular Fit Slogan', price: '1,190' },
+  { id: 8, img: images.img2, name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
+  { id: 9, img: images.img3, name: 'Regular Fit Black', price: '1,190' },
+  { id: 10, img: images.img3, name: 'Regular Fit Black', price: '1,190' },
+  { id: 11, img: images.img1, name: 'Regular Fit Slogan', price: '1,190' },
+  { id: 12, img: images.img2, name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
+  { id: 13, img: images.img3, name: 'Regular Fit Black', price: '1,190' },
+  { id: 14, img: images.img1, name: 'Regular Fit Slogan', price: '1,190' },
+  { id: 15, img: images.img2, name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
+  { id: 16, img: images.img3, name: 'Regular Fit Black', price: '1,190' },
+  { id: 17, img: images.img1, name: 'Regular Fit Slogan', price: '1,190' },
+  { id: 18, img: images.img2, name: 'Regular Fit Polo', price: '1,100', discount: '52%' },
+  { id: 19, img: images.img3, name: 'Regular Fit Black', price: '1,190' },
+  { id: 20, img: images.img3, name: 'Regular Fit Black', price: '1,190' },
 ];
 
 const HomeScreen = () => {
@@ -37,6 +54,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Header header={"Discover"}/>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
@@ -121,13 +139,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 40,
-    padding: 19,
+    padding: 14,
     backgroundColor: 'white',
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: 20
+    marginTop: -55,
   },
   textInput: {
     flex: 1,

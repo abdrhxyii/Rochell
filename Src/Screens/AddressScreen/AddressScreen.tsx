@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 40,
-        padding: 19,
+        padding: 16,
         backgroundColor: 'white',
       },
       addressContainer: {
