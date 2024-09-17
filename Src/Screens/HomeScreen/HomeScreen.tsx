@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 40,
-    padding: 14,
+    padding: 16,
     backgroundColor: 'white',
   },
   inputContainer: {

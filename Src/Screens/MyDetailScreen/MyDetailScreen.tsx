@@ -12,7 +12,7 @@ const MyDetailScreen = () => {
     const [dateString, setDateString] = useState('');
 
     const onChange = (event: any, selectedDate: any) => {
-      const currentDate = selectedDate || date // if user selected date or else current date (today)
+      const currentDate = selectedDate || date 
       setShow(Platform.OS === 'ios')
       setDate(currentDate);
 
@@ -83,7 +83,7 @@ const MyDetailScreen = () => {
       </View>
 
       <View style={styles.primaryButtonBottom}>
-        <PrimaryButton text="Submit"/>
+        <PrimaryButton text="Submit" width={'100%'}/>
       </View>
       </ScrollView>
     </SafeAreaView>
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 40,
-        padding: 27,
+        padding: 16,
         backgroundColor: 'white',
       },
     inputFieldText: {
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         marginBottom: 16,
       },
     primaryButtonBottom: {
-        marginTop: 20
+        marginTop: 20,
     },
     pickerContainer: {
         width: '100%',

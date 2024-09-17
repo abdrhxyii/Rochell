@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import Header from '../../Components/HeaderComponent/Header';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import PrimaryButton from '../../Components/PrimaryButton/PrimaryButton';
+import { Heart } from 'lucide-react-native';
 
 const ProductDetailScreen = () => {
     const [labelsize, setLabelsize] = useState(null);
@@ -14,11 +15,11 @@ const ProductDetailScreen = () => {
     <SafeAreaView style={styles.container}>
         <Header loggedIn="true" leftIcon="arrow-left" rightIcon="bell" centerText="Details"/>
         <Image
-            source={require('../../../assets/tshirt.jpg')} // Replace with the actual image URL
+            source={require('../../../assets/tshirt.jpg')} 
             style={styles.image}
         />
         <TouchableOpacity style={styles.favoriteIcon}>
-            <Icon name="heart" size={20} color="#000" />
+            <Heart color="#000" size={20} /> 
         </TouchableOpacity>
 
         <View style={styles.detailsContainer}>
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 40,
-        padding: 27,
+        padding: 16,
         backgroundColor: 'white',
     },
     image: {
@@ -73,6 +74,7 @@ const styles = StyleSheet.create({
         height: 350,
         resizeMode: 'cover',
         borderRadius: 10,
+        marginTop: 5,
       },
       detailsContainer: {
         paddingVertical: 10
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
       favoriteIcon: {
         position: 'absolute',
         top: 120,
-        right: 40,
+        right: 30,
         backgroundColor: '#fff',
         borderRadius: 20,
         padding: 6,
@@ -144,7 +146,7 @@ const styles = StyleSheet.create({
       cartContainer: {
         display: 'flex',
         flexDirection: 'row',
-        padding: 10,
+        paddingVertical: 8,
         justifyContent: 'space-between',
         bottom: -65,
         borderTopWidth: 1,

@@ -18,6 +18,8 @@ import CustomerserviceScreen from './Src/Screens/CustomerserviceScreen/Customers
 import ProductDetailScreen from './Src/Screens/ProductDetailScreen/ProductDetailScreen';
 import AddressScreen from './Src/Screens/AddressScreen/AddressScreen';
 import { Home, Search, Heart, ShoppingBag, CircleUser } from 'lucide-react-native';
+import MyDetailScreen from './Src/Screens/MyDetailScreen/MyDetailScreen';
+import MyOrder from './Src/Screens/MyOrder/MyOrder';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -83,6 +85,8 @@ export default function App() {
         <Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
         <Stack.Screen name="Address" component={AddressScreen} />
         <Stack.Screen name="Main" component={TabNavigator} />
+        <Stack.Screen name="MyDetail" component={MyDetailScreen} />
+        <Stack.Screen name="MyOrder" component={MyOrder} />
       </Stack.Navigator>
     </NavigationContainer>
   );
