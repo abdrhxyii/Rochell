@@ -5,7 +5,7 @@ const GoogleButton = ({text}: any) => {
   return (
     <>
     <TouchableOpacity style={styles.googleButton}>
-      <Image source={require('@assets/images/logos_google-icon.png')}/>
+      <Image source={require('@/assets/images/logos_google-icon.png')}/>
       <Text style={styles.googleButtonText}>{text}</Text>
     </TouchableOpacity>
     </>
