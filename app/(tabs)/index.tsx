@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import { Sliders, Heart } from 'lucide-react-native'; 
+import Slider from '@react-native-community/slider';
+import Modal from 'react-native-modal';
+import { X } from 'lucide-react-native';
 
 import Header from '@/components/Header';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import LabelScroller from '@/components/LabelScroller';
+import { useRouter } from 'expo-router';
+import PrimaryButton from '@/components/PrimaryButton';
 
 const images = {
   img1: require("@/assets/images/trousere.jpeg"),
@@ -38,29 +40,32 @@ const productData = [
 
 export default function HomeScreen() {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [price, setPrice] = useState(0);
+  const router = useRouter()
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+  
   return (
     <SafeAreaView style={styles.container}>
-      <Header header={"Discover"}/>
+      <Header header={"Discover"} />
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
           placeholder="Search rochell..."
         />
         <TouchableOpacity style={styles.filterBtn} onPress={toggleModal}>
-          <Icon name="sliders-h" color={'white'} size={20} solid={false} />
+          <Sliders color={'white'} size={20} /> 
         </TouchableOpacity>
       </View>
       <LabelScroller itemLabel={["All", "Jeans", "Shoes", "Abayas", "Shalwar", "Bangles", "Underwears"]} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.productRow}>
           {productData.map((product) => (
-            <TouchableOpacity activeOpacity={1} key={product.id} style={styles.productContainer}>
+            <TouchableOpacity activeOpacity={1} key={product.id} style={styles.productContainer} onPress={() => router.push('/ProductDetail')}>
               <Image resizeMode='cover' source={product.img} style={styles.productImage} />
               <TouchableOpacity style={styles.favoriteIcon}>
-                <Icon name="heart" size={20} color="#000" />
+                <Heart size={20} color="#000" />
               </TouchableOpacity>
               <Text style={styles.productName}>{product.name}</Text>
               <Text style={styles.productPrice}>${product.price}</Text>
@@ -68,7 +73,54 @@ export default function HomeScreen() {
           ))}
         </View>
       </ScrollView>
+      <Modal
+        isVisible={isModalVisible}
+        onBackdropPress={toggleModal}
+        animationIn="slideInUp"
+        animationOut="slideOutDown"
+        backdropTransitionOutTiming={0}
+        style={styles.modal}
+      >
+        <View style={styles.modalContent}>
+          <View style={styles.modalHeader}>
+            <Text style={styles.modalText}>Filters</Text>
+            <TouchableOpacity style={styles.closeButton} onPress={toggleModal}>
+              <X size={25} color={'#000'}/>
+            </TouchableOpacity>  
+            
+          </View>  
+          <View style={styles.mainModalContent}>
+            <View style={[styles.sectionWrapper, {height: 100,marginBottom: 10}]}>
+            <Text style={styles.modalTextHeader}>Sort By</Text>
+            <LabelScroller itemLabel={["Relevance", "Price: Low - High", "Price: High - low", "Category: Men", "Category: Women"]} />
+            </View>
+            
+            <View style={[styles.sectionWrapper, {height: 70}]}>
+            <View style={styles.priceContainer}>
+              <Text style={styles.modalTextHeader}>Price</Text>
+              <Text style={styles.sliderValue}>$0 - {price}</Text>
+            </View>
 
+            <View style={styles.sliderContainer}>
+              <Slider
+                minimumValue={0}
+                maximumValue={100}
+                step={1}
+                value={price}
+                onValueChange={setPrice}
+                minimumTrackTintColor="#000000"
+                maximumTrackTintColor="#000000"
+                thumbTintColor="#000000"
+              />
+            </View>
+            </View>
+            
+            <View style={styles.primaryButtonWrapper}>
+            <PrimaryButton text={'Apply Filter'} width={'100%'}/>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -87,19 +139,19 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    height: 48,
+    height: 40,
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 10,
+    borderRadius: 6,
     paddingHorizontal: 10,
     backgroundColor: '#f9f9f9',
   },
   filterBtn: {
     marginLeft: 10,
     backgroundColor: '#000',
-    paddingVertical: 12,
+    paddingVertical: 10,
     paddingHorizontal: 15,
-    borderRadius: 7,
+    borderRadius: 6,
   },
   filterBtnText: {
     color: '#fff',
@@ -180,7 +232,6 @@ const styles = StyleSheet.create({
     padding: 20
   },
   closeButton: {
-    paddingHorizontal: 7,
     paddingVertical: 3,
     borderRadius: 50,
     display: 'flex',
