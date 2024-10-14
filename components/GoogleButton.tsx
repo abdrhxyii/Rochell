@@ -1,12 +1,14 @@
-import { StyleSheet, Text, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, Image,View } from 'react-native'
 import React from 'react'
 
-const GoogleButton = ({text}: any) => {
+const GoogleButton = () => {
   return (
     <>
     <TouchableOpacity style={styles.googleButton}>
-      <Image source={require('@/assets/images/logos_google-icon.png')}/>
-      <Text style={styles.googleButtonText}>{text}</Text>
+      <Image source={require('@/assets/images/google1.png')} style={styles.googleImage}/>
+      <View style={styles.textWrapper}>
+          <Text style={styles.googleButtonText}>Continue with Google</Text>
+      </View>
     </TouchableOpacity>
     </>
   )
@@ -15,21 +17,30 @@ const GoogleButton = ({text}: any) => {
 export default GoogleButton
 
 const styles = StyleSheet.create({
-    googleButton: {
-        display: 'flex',
-        flexDirection: 'row',
-        borderColor: '808080',
-        borderWidth: 1,
-        borderRadius: 10,
-        gap: 10,
-      //   paddingVertical: 16,
-        alignItems: 'center',
-        marginBottom: 16,
-        width: 341,
-        height: 53,
-        justifyContent: 'center',
-    },
-    googleButtonText: {
-        fontSize: 16,
-    },
-})
+  googleButton: {
+    flexDirection: 'row',
+    borderRadius: 10,
+    alignItems: 'center',
+    marginBottom: 16,
+    width: '100%',
+    height: 45,
+    justifyContent: 'flex-start',
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: '#0000000'
+  },
+  googleImage: {
+    marginRight: 10,
+    width: 27,
+    height: 27,
+  },
+  textWrapper: {
+    flex: 1,
+    alignItems: 'center', 
+  },
+  googleButtonText: {
+    color: '#000000',
+    fontSize: 13,
+    textAlign: 'center',
+  },
+});

@@ -30,71 +30,74 @@ export default function Cart() {
   const renderCartItem = ({ item } : any) => (
     <View style={styles.cartItem}>
       <Image source={item.image} style={styles.productImage} />
-      <View style={styles.productDetails}>
-        <Text style={styles.productName}>{item.name}</Text>
-        <Text style={styles.productSize}>Size {item.size}</Text>
-        <Text style={styles.productPrice}>${item.price}</Text>
-      </View>
+        <View style={styles.productDetails}>
+          <Text style={styles.productName}>{item.name}</Text>
+          <Text style={styles.productSize}>Size {item.size}</Text>
+          <Text style={styles.productPrice}>${item.price}</Text>
+        </View>
 
-      <TouchableOpacity style={styles.removeButton}>
-        <Trash2 size={20} color="red" />
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.removeButton}>
+          <Trash2 size={20} color="red" />
+        </TouchableOpacity>
 
-      <View style={styles.quantityControls}>
-        <TouchableOpacity style={styles.quantityButton}>
-          <Minus size={15} color="#000" />
-        </TouchableOpacity>
-        <Text style={styles.quantityText}>{item.quantity}</Text>
-        <TouchableOpacity style={styles.quantityButton}>
-          <Plus size={15} color="#000" />
-        </TouchableOpacity>
-      </View>
+        <View style={styles.quantityControls}>
+          <TouchableOpacity style={styles.quantityButton}>
+            <Minus size={15} color="#000" />
+          </TouchableOpacity>
+          <Text style={styles.quantityText}>{item.quantity}</Text>
+          <TouchableOpacity style={styles.quantityButton}>
+            <Plus size={15} color="#000" />
+          </TouchableOpacity>
+        </View>
     </View>
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header loggedIn="true" leftIcon="arrow-left" rightIcon="bell" centerText="My Cart"/>
-      <FlatList
-        data={cartItems}
-        renderItem={renderCartItem}
-        keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
-      />
+    <SafeAreaView style={styles.safeArea}>
+       <View style={styles.container}>
+        <FlatList
+          data={cartItems}
+          renderItem={renderCartItem}
+          keyExtractor={item => item.id}
+          showsVerticalScrollIndicator={false}
+          overScrollMode='never'
+        />
 
-      <View style={styles.summary}>
-        <View style={styles.summaryItem}>
-          <Text style={styles.summaryText}>Sub-total</Text>
-          <Text style={styles.summaryAmount}>$5870</Text>
+        <View style={styles.summary}>
+          <View style={styles.summaryItem}>
+            <Text style={styles.summaryText}>Sub-total</Text>
+            <Text style={styles.summaryAmount}>$5870</Text>
+          </View>
+          <View style={styles.summaryItem}>
+            <Text style={styles.summaryText}>VAT (%)</Text>
+            <Text style={styles.summaryAmount}>$0.00</Text>
+          </View>
+          <View style={styles.summaryItem}>
+            <Text style={styles.summaryText}>Shipping fee</Text>
+            <Text style={styles.summaryAmount}>$80</Text>
+          </View>
+          <View style={styles.summaryTotal}>
+            <Text style={styles.summaryText}>Total</Text>
+            <Text style={[styles.summaryAmount, {fontWeight: 'bold', fontSize: 18}]}>$5950</Text>
+          </View>
         </View>
-        <View style={styles.summaryItem}>
-          <Text style={styles.summaryText}>VAT (%)</Text>
-          <Text style={styles.summaryAmount}>$0.00</Text>
-        </View>
-        <View style={styles.summaryItem}>
-          <Text style={styles.summaryText}>Shipping fee</Text>
-          <Text style={styles.summaryAmount}>$80</Text>
-        </View>
-        <View style={styles.summaryTotal}>
-          <Text style={styles.summaryText}>Total</Text>
-          <Text style={[styles.summaryAmount, {fontWeight: 'bold', fontSize: 18}]}>$5950</Text>
+        <View style={styles.checkoutButton}>
+          <PrimaryButton text={"Go To Checkout"} onPress={() => route.push('/Signup')} width={'100%'}/>
         </View>
       </View>
-      <View style={styles.checkoutButton}>
-        <PrimaryButton text={"Go To Checkout"} onPress={() => route.push('/Signup')} width={'100%'}/>
-      </View>
-
   </SafeAreaView>
   )
 }
 
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   container: {
     flex: 1,
-    paddingTop: 40,
-    padding: 16,
-    backgroundColor: 'white',
+    paddingHorizontal: 16,
   },
   header: {
     flexDirection: 'row',
@@ -108,12 +111,13 @@ const styles = StyleSheet.create({
   },
   cartItem: {
     flexDirection: 'row',
-    // alignItems: 'center',
+    alignItems: 'center',
     marginBottom: 13,
     padding: 8,
     borderColor: '#ddd',
     borderWidth: 1,
     borderRadius: 8,
+    marginVertical: 5,
   },
   productImage: {
     width: 75,
@@ -168,7 +172,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     borderTopWidth: 1,
     borderTopColor: '#ddd',
-    paddingTop: 16,
+    paddingTop: 10,
   },
   summaryItem: {
     flexDirection: 'row',
@@ -182,7 +186,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   summaryText: {
-    fontSize: 16,
+    fontSize: 15,
   },
   summaryAmount: {
     fontSize: 16,
@@ -191,7 +195,7 @@ const styles = StyleSheet.create({
   checkoutButton: {
     borderRadius: 8,
     position: 'relative',
-    top: 18
+    top: 8
   },
 });
 

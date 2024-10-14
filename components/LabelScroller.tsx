@@ -13,7 +13,7 @@ const LabelScroller: React.FC<LabelScollProps> = ({itemLabel}) => {
   }
   return (
     <View style={{ height: 60 }}>
-    <ScrollView showsHorizontalScrollIndicator={false} horizontal style={styles.categoryContainer}>
+    <ScrollView overScrollMode='never' showsHorizontalScrollIndicator={false} horizontal style={styles.categoryContainer}>
       { 
       itemLabel.map((data, index) => (
         <TouchableOpacity 

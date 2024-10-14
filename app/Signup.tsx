@@ -48,11 +48,11 @@ const Signup = () => {
       By signing up you agree to our <Text style={styles.link}>Terms</Text>, <Text style={styles.link}>Privacy Policy</Text>, and <Text style={styles.link}>Cookie Use</Text>
     </Text>
 
-    <PrimaryButton text="Create an Account" />
+    <PrimaryButton text="Create an account" width={'100%'} />
 
-    <Text style={styles.or}>or</Text>
-    <GoogleButton text="Sign Up with Google" />
-    <FacebookButton text="Sign Up with Facebook" />
+    <Text style={styles.or}>OR</Text>
+    <GoogleButton/>
+    <FacebookButton/>
 
     <Text style={styles.footerText}>
       Already have an account? <Text style={styles.link} onPress={() => route.push('/Login')}>Log In</Text>
@@ -67,8 +67,7 @@ export default Signup
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: 40,
-      padding: 27,
+      padding: 15,
       backgroundColor: 'white',
     },
     header: {
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
       marginBottom: 40,
     },
     input: {
-      width: 341,
+      width: '100%',
       height: 53,
       borderWidth: 1,
       borderColor: '#808080',
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       paddingHorizontal: 16,
       marginBottom: 16,
-      width: 341,
+      width: '100%',
       height: 53,
     },
     passwordInput: {

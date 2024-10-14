@@ -41,12 +41,12 @@ const Login = () => {
                 Forgot your password? <Text style={styles.link} onPress={() => route.push('/ResetPassword')}>Reset your password</Text>
             </Text>
 
-            <PrimaryButton text="Login" />
+            <PrimaryButton text="Login" width={"100%"} />
 
             <Text style={styles.or}>or</Text>
 
-            <GoogleButton text="Login with Google" />
-            <FacebookButton text="Login with Facebook" />
+            <GoogleButton />
+            <FacebookButton />
 
             <Text style={styles.footerText}>
                 Don't have an account? <Text style={styles.link}>Join</Text>
@@ -60,12 +60,11 @@ export default Login;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 40,
-        padding: 27,
+        padding: 15,
         backgroundColor: 'white',
     },
     input: {
-        width: 341,
+        width: '100%',
         height: 53,
         borderWidth: 1,
         borderColor: '#808080',
@@ -85,8 +84,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         paddingHorizontal: 16,
         marginBottom: 16,
-        width: 341,
-        height: 53,
+        width: '100%',
+        height: 50,
     },
     passwordInput: {
         flex: 1,

@@ -1,4 +1,3 @@
-import Header from '@/components/Header';
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
 
@@ -40,9 +39,8 @@ const orderData = [
 const MyOrder = () => {
     const [activeTab, setActiveTab] = useState('Ongoing');
   return (
-    <SafeAreaView style={styles.container}>
-        <Header loggedIn="true" leftIcon="arrow-left" rightIcon="bell" centerText="My Orders"/>
-      <View style={styles.tabContainer}>
+    <SafeAreaView style={styles.safeArea}>
+      {/* <View style={styles.tabContainer}>
         <TouchableOpacity
           activeOpacity={1}
           style={[styles.tab, activeTab === 'Ongoing' && styles.activeTab]}
@@ -57,7 +55,7 @@ const MyOrder = () => {
         >
           <Text style={styles.tabText}>Completed</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       <FlatList
         data={orderData}
         renderItem={({ item }) => <OrderItem item={item} />}
@@ -71,11 +69,13 @@ const MyOrder = () => {
 export default MyOrder
 
 const styles = StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      backgroundColor: 'white',
+    },
     container: {
-        flex: 1,
-        paddingTop: 40,
-        padding: 16,
-        backgroundColor: 'white',
+      flex: 1,
+      paddingHorizontal: 16,
     },
     tabContainer: {
       flexDirection: 'row',
@@ -84,10 +84,11 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       marginTop: 10,
       padding: 6,
+      margin: 10
     },
     tab: {
       flex: 1,
-      paddingVertical: 12,
+      paddingVertical: 10,
       alignItems: 'center',
     },
     activeTab: {
@@ -106,6 +107,7 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderColor: '#ddd',
       borderRadius: 10,
+      marginHorizontal: 10,
     },
     image: {
       width: 60,

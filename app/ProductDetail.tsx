@@ -12,8 +12,7 @@ const ProductDetail = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Header loggedIn="true" leftIcon="arrow-left" rightIcon="bell" centerText="Details" />
+        <SafeAreaView style={styles.safeArea}>
             <Image
                 source={require('@/assets/images/trousere.jpeg')}
                 style={styles.image}
@@ -62,6 +61,10 @@ const ProductDetail = () => {
 export default ProductDetail;
 
 const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: 'white',
+    },
     container: {
         flex: 1,
         paddingTop: 40,
@@ -72,11 +75,10 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 350,
         resizeMode: 'cover',
-        borderRadius: 10,
-        marginTop: 5,
     },
     detailsContainer: {
-        paddingVertical: 10
+        paddingVertical: 10,
+        padding: 10
     },
     productTitle: {
         fontSize: 24,
@@ -88,7 +90,6 @@ const styles = StyleSheet.create({
         marginVertical: 8,
     },
     ratingText: {
-        marginLeft: 8,
         fontSize: 16,
         fontWeight: 'bold',
         textDecorationLine: 'underline'

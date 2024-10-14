@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, ScrollView, StyleSheet, SafeAreaView, StatusBar } from 'react-native';
 import { Sliders, Heart } from 'lucide-react-native'; 
 import Slider from '@react-native-community/slider';
 import Modal from 'react-native-modal';
@@ -41,101 +41,113 @@ const productData = [
 export default function HomeScreen() {
   const [isModalVisible, setModalVisible] = useState(false);
   const [price, setPrice] = useState(0);
-  const router = useRouter()
+  const router = useRouter();
+  
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-  
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Header header={"Discover"} />
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Search rochell..."
-        />
-        <TouchableOpacity style={styles.filterBtn} onPress={toggleModal}>
-          <Sliders color={'white'} size={20} /> 
-        </TouchableOpacity>
-      </View>
-      <LabelScroller itemLabel={["All", "Jeans", "Shoes", "Abayas", "Shalwar", "Bangles", "Underwears"]} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.productRow}>
-          {productData.map((product) => (
-            <TouchableOpacity activeOpacity={1} key={product.id} style={styles.productContainer} onPress={() => router.push('/ProductDetail')}>
-              <Image resizeMode='cover' source={product.img} style={styles.productImage} />
-              <TouchableOpacity style={styles.favoriteIcon}>
-                <Heart size={20} color="#000" />
-              </TouchableOpacity>
-              <Text style={styles.productName}>{product.name}</Text>
-              <Text style={styles.productPrice}>${product.price}</Text>
-            </TouchableOpacity>
-          ))}
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Search rochell..."
+          />
+          <TouchableOpacity style={styles.filterBtn} onPress={toggleModal}>
+            <Sliders color={'white'} size={20} /> 
+          </TouchableOpacity>
         </View>
-      </ScrollView>
-      <Modal
-        isVisible={isModalVisible}
-        onBackdropPress={toggleModal}
-        animationIn="slideInUp"
-        animationOut="slideOutDown"
-        backdropTransitionOutTiming={0}
-        style={styles.modal}
-      >
-        <View style={styles.modalContent}>
-          <View style={styles.modalHeader}>
-            <Text style={styles.modalText}>Filters</Text>
-            <TouchableOpacity style={styles.closeButton} onPress={toggleModal}>
-              <X size={25} color={'#000'}/>
-            </TouchableOpacity>  
-            
-          </View>  
-          <View style={styles.mainModalContent}>
-            <View style={[styles.sectionWrapper, {height: 100,marginBottom: 10}]}>
-            <Text style={styles.modalTextHeader}>Sort By</Text>
-            <LabelScroller itemLabel={["Relevance", "Price: Low - High", "Price: High - low", "Category: Men", "Category: Women"]} />
-            </View>
-            
-            <View style={[styles.sectionWrapper, {height: 70}]}>
-            <View style={styles.priceContainer}>
-              <Text style={styles.modalTextHeader}>Price</Text>
-              <Text style={styles.sliderValue}>$0 - {price}</Text>
+
+        <LabelScroller itemLabel={["All", "Jeans", "Shoes", "Abayas", "Shalwar", "Bangles", "Underwears"]} />
+
+        <ScrollView showsVerticalScrollIndicator={false} overScrollMode="never">
+          <View style={styles.productRow}>
+            {productData.map((product) => (
+              <TouchableOpacity 
+                activeOpacity={1} 
+                key={product.id} 
+                style={styles.productContainer} 
+                onPress={() => router.push('/ProductDetail')}
+              >
+                <Image resizeMode='cover' source={product.img} style={styles.productImage} />
+                <TouchableOpacity style={styles.favoriteIcon}>
+                  <Heart size={20} color="#000" />
+                </TouchableOpacity>
+                <Text style={styles.productName}>{product.name}</Text>
+                <Text style={styles.productPrice}>${product.price}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+
+        <Modal
+          isVisible={isModalVisible}
+          onBackdropPress={toggleModal}
+          animationIn="slideInUp"
+          animationOut="slideOutDown"
+          backdropTransitionOutTiming={0}
+          style={styles.modal}
+        >
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalText}>Filters</Text>
+              <TouchableOpacity style={styles.closeButton} onPress={toggleModal}>
+                <X size={25} color={'#000'}/>
+              </TouchableOpacity>  
             </View>
 
-            <View style={styles.sliderContainer}>
-              <Slider
-                minimumValue={0}
-                maximumValue={100}
-                step={1}
-                value={price}
-                onValueChange={setPrice}
-                minimumTrackTintColor="#000000"
-                maximumTrackTintColor="#000000"
-                thumbTintColor="#000000"
-              />
-            </View>
-            </View>
-            
-            <View style={styles.primaryButtonWrapper}>
-            <PrimaryButton text={'Apply Filter'} width={'100%'}/>
+            <View style={styles.mainModalContent}>
+              <View style={[styles.sectionWrapper, {height: 100, marginBottom: 10}]}>
+                <Text style={styles.modalTextHeader}>Sort By</Text>
+                <LabelScroller itemLabel={["Relevance", "Price: Low - High", "Price: High - low", "Category: Men", "Category: Women"]} />
+              </View>
+
+              <View style={[styles.sectionWrapper, {height: 70}]}>
+                <View style={styles.priceContainer}>
+                  <Text style={styles.modalTextHeader}>Price</Text>
+                  <Text style={styles.sliderValue}>$0 - {price}</Text>
+                </View>
+
+                <View style={styles.sliderContainer}>
+                  <Slider
+                    minimumValue={0}
+                    maximumValue={100}
+                    step={1}
+                    value={price}
+                    onValueChange={setPrice}
+                    minimumTrackTintColor="#000000"
+                    maximumTrackTintColor="#000000"
+                    thumbTintColor="#000000"
+                  />
+                </View>
+              </View>
+
+              <View style={styles.primaryButtonWrapper}>
+                <PrimaryButton text={'Apply Filter'} width={'100%'}/>
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   container: {
     flex: 1,
-    paddingTop: 40,
-    padding: 16,
-    backgroundColor: 'white',
+    paddingHorizontal: 16,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: -55,
+    marginTop: 5,  // Adjusted for better positioning
   },
   textInput: {
     flex: 1,
@@ -178,6 +190,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+    marginTop: 8, // Adjusted for spacing
   },
   productContainer: {
     width: '48%',
@@ -222,14 +235,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderBottomColor: '#ddd',
     borderBottomWidth: 1,
-    height: 45
+    height: 45,
   },
   modalContent: {
     backgroundColor: 'white',
     borderTopLeftRadius: 17,
     borderTopRightRadius: 17,
     height: '50%',
-    padding: 20
+    padding: 20,
   },
   closeButton: {
     paddingVertical: 3,
@@ -239,6 +252,10 @@ const styles = StyleSheet.create({
   },
   mainModalContent: {
     marginTop: 10,
+  },
+  sectionWrapper: {
+    borderBottomColor: '#ddd',
+    borderBottomWidth: 1,
   },
   modalText: {
     fontSize: 20,
@@ -256,7 +273,7 @@ const styles = StyleSheet.create({
   sliderValue: {
     color: '#808080',
     fontWeight: 'bold',
-    fontSize: 14
+    fontSize: 14,
   },
   priceContainer: {
     display: 'flex',
@@ -265,11 +282,7 @@ const styles = StyleSheet.create({
   },
   primaryButtonWrapper: {
     position: 'absolute',
-    bottom: -150,
-    width: '100%'
-  },
-  sectionWrapper: {
-    borderBottomColor: "#ddd",
-    borderBottomWidth: 1
+    bottom: 0,
+    width: '100%',
   }
 });

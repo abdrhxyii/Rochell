@@ -24,7 +24,15 @@ export default function Account() {
     { id: '5', icon: Bell, name: 'Notifications', route: 'MyDetail' },
     { id: '6', icon: HelpCircle, name: 'FAQs', route: 'MyDetail' },
     { id: '7', icon: LifeBuoy, name: 'Help Center', route: 'MyDetail' },
-    { id: '8', icon: LogOut, name: 'Logout', route: 'MyDetail' }
+    { id: '8', icon: LogOut, name: 'Logout', route: 'MyDetail' },
+    // { id: '9', icon: Package, name: 'My Orders', route: 'MyOrder' },
+    // { id: '10', icon: User, name: 'My Details', route: 'MyDetail'},
+    // { id: '11', icon: MapPin, name: 'Address Book', route: 'MyDetail' },
+    // { id: '12', icon: CreditCard, name: 'Payment Methods', route: 'MyDetail' },
+    // { id: '13', icon: Bell, name: 'Notifications', route: 'MyDetail' },
+    // { id: '14', icon: HelpCircle, name: 'FAQs', route: 'MyDetail' },
+    // { id: '15', icon: LifeBuoy, name: 'Help Center', route: 'MyDetail' },
+    // { id: '16', icon: LogOut, name: 'Logout', route: 'MyDetail' }
   ];
   
   const renderAccountItem = ({ item }: any) => {
@@ -41,29 +49,32 @@ export default function Account() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header loggedIn="true" leftIcon="arrow-left" rightIcon="bell" centerText="Account" />
-      <FlatList
-        data={accountItem}
-        renderItem={renderAccountItem}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-      />
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <FlatList
+          data={accountItem}
+          renderItem={renderAccountItem}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   container: {
     flex: 1,
-    paddingTop: 40,
-    padding: 16,
-    backgroundColor: 'white',
+    paddingHorizontal: 16,
   },
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 18,
+    paddingVertical: 15,
     borderBottomWidth: 1,
     borderColor: '#ddd',
     justifyContent: 'space-between', 
